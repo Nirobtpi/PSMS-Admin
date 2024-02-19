@@ -21,7 +21,7 @@ if (isset($_POST['adminlogin'])) {
   } elseif (empty($password)) {
     $error = "Please Enter Your Password";
   } else {
-    $stm = $conn->prepare("SELECT id,user_name,password FROM admin WHERE user_name=? and password=?");
+    $stm = $conn->prepare("SELECT id,name,user_name,password FROM admin WHERE user_name=? and password=?");
     $stm->execute(array($username, SHA1($password)));
     $adminCount = $stm->rowCount();
 

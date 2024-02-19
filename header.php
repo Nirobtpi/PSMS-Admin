@@ -1,4 +1,5 @@
 <?php
+require_once('config.php');
 session_start();
 if (!isset($_SESSION['admin'])) {
     header("location:login.php");
@@ -50,13 +51,13 @@ if (!isset($_SESSION['admin'])) {
                                 <span class="availability-status online"></span>
                             </div>
                             <div class="nav-profile-text">
-                                <p class="mb-1 text-black">David Greymaax</p>
+                                <p class="mb-1 text-black"><?php echo $_SESSION['admin']['name'] ?></p>
                             </div>
                         </a>
                         <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="change-password.php">
                                 <i class="mdi mdi-cached mr-2 text-success"></i>
-                                Activity Log
+                               Change Password
                             </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="logout.php">
@@ -173,11 +174,6 @@ if (!isset($_SESSION['admin'])) {
                     <li class="nav-item nav-logout d-none d-lg-block">
                         <a class="nav-link" href="logout.php">
                             <i class="mdi mdi-power"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item nav-settings d-none d-lg-block">
-                        <a class="nav-link" href="#">
-                            <i class="mdi mdi-format-line-spacing"></i>
                         </a>
                     </li>
                 </ul>
