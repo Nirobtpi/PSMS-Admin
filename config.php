@@ -12,3 +12,5 @@ try {
 } catch (PDOException $e) {
     echo "Connection Fail" . $e->getMessage();
 }
+
+require_once("functions.php");
