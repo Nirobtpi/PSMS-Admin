@@ -13,12 +13,12 @@ if (isset($_POST['create_teacher'])) {
     $t_terms = $_POST['t_terms'];
     $patten = '/(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/';
 
-    $terget_dir='uploades/';
-    $terget_file=$terget_dir. basename($t_photo);
-    $fileExtention=strtolower(pathinfo($terget_file,PATHINFO_EXTENSION));
+    $terget_dir = 'uploads/';
+    $terget_file = $terget_dir . basename($_FILES['t_photo']['name']);
+    $fileExtention = strtolower(pathinfo($terget_file, PATHINFO_EXTENSION));
 
-    $teacherMobileCount= tRowCount('teachers','mobile',$t_mobile);
-    $teacherEmaileCount= tRowCount('teachers','email',$t_email);
+    $teacherMobileCount = tRowCount('teachers', 'mobile', $t_mobile);
+    $teacherEmaileCount = tRowCount('teachers', 'email', $t_email);
 
     if (empty($t_name)) {
         $error = "Please Enter Your Name";
@@ -30,32 +30,38 @@ if (isset($_POST['create_teacher'])) {
         $error = "Please Enter A Valid Phone Number";
     } elseif (!filter_var($t_email, FILTER_VALIDATE_EMAIL)) {
         $error = "Please Enter A Valid Email";
-    }elseif(empty($t_password)){
-        $error="Please Enter Your Password";
-    }elseif($t_password != $t_c_password){
-        $error="Passsword Does Not Match!";
-    }elseif(strlen($t_password) < 6 or strlen($t_password) > 15){
-        $error="Password Must Be Used 6 T0 15 Digit!";
-    }elseif($teacherEmaileCount !=1){
-        $error="Email Already Used!";
-    }elseif($teacherMobileCount !=1){
-        $error="Mobile Number Already Used!";
-    }else{
-        if(!empty($t_photo)){
-            
+    } elseif (empty($t_password)) {
+        $error = "Please Enter Your Password";
+    } elseif ($t_password != $t_c_password) {
+        $error = "Passsword Does Not Match!";
+    } elseif (strlen($t_password) < 6 or strlen($t_password) > 15) {
+        $error = "Password Must Be Used 6 T0 15 Digit!";
+    } elseif ($teacherEmaileCount != 0) {
+        $error = "Email Already Used!";
+    } elseif ($teacherMobileCount != 0) {
+        $error = "Mobile Number Already Used!";
+    } else {
+        if (!empty($t_photo)) {
 
-            if($fileExtention !="png" and $fileExtention !='jpg' and $fileExtention !='jpeg'){
-                $error="File Must Be Used Jpeg,Png Or Jpg Verson!";
-            }else{
-                $newphotoname = $terget_dir . $t_name . rand(1111, 9999) . "." . $fileExtention;
-                move_uploaded_file($_FILES['t_photo']['tmp_name'],$terget_dir);
 
-                print_r($_FILES['t_photo']);
+            if ($fileExtention != "png" and $fileExtention != 'jpg' and $fileExtention != 'jpeg') {
+                $error = "File Must Be Used Jpeg,Png Or Jpg Verson!";
+            } else {
+                $newphotoname = $terget_dir . rand(1111, 9999) . "." . $fileExtention;
+                move_uploaded_file($_FILES['t_photo']['tmp_name'], $newphotoname);
+
+                // print_r($_FILES['t_photo']);
             }
-        }else{
+        } else {
             // $id= getTableData('teachers','id')
-           $newphotoname= "Null";
+            $newphotoname = "";
         }
+        $created_At = date("Y-m-d H:i:s");
+        $t_password = SHA1($t_password);
+        $stm = $conn->prepare("INSERT INTO teachers (name,email,mobile,address,gender,photo,password,created_at) VALUES(?,?,?,?,?,?,?,?)");
+        $stm->execute(array($t_name, $t_email, $t_mobile, $t_address, $t_gender, $newphotoname, $t_password, $created_At));
+
+        $success = "Data Insert Success!";
     }
 }
 
@@ -113,7 +119,7 @@ if (isset($_POST['create_teacher'])) {
                         <label for="t_gender">Gender</label>
                         <br>
                         <label for="male"><input type="radio" checked name="t_gender" value="Male" id="male">&nbsp; Male</label>&nbsp;&nbsp;
-                        <label for="female"><input type="radio" name="gender" value="Female" id="female"> &nbsp; Female</label>
+                        <label for="female"><input type="radio" name="t_gender" value="Female" id="female"> &nbsp; Female</label>
                     </div>
                     <div class="form-group">
                         <label for="t_password">Password</label>
