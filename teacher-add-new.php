@@ -17,6 +17,9 @@ if (isset($_POST['create_teacher'])) {
     $terget_file=$terget_dir. basename($t_photo);
     $fileExtention=strtolower(pathinfo($terget_file,PATHINFO_EXTENSION));
 
+    $teacherMobileCount= tRowCount('teachers','mobile',$t_mobile);
+    $teacherEmaileCount= tRowCount('teachers','email',$t_email);
+
     if (empty($t_name)) {
         $error = "Please Enter Your Name";
     } elseif (empty($t_email)) {
@@ -33,6 +36,10 @@ if (isset($_POST['create_teacher'])) {
         $error="Passsword Does Not Match!";
     }elseif(strlen($t_password) < 6 or strlen($t_password) > 15){
         $error="Password Must Be Used 6 T0 15 Digit!";
+    }elseif($teacherEmaileCount !=1){
+        $error="Email Already Used!";
+    }elseif($teacherMobileCount !=1){
+        $error="Mobile Number Already Used!";
     }else{
         if(!empty($t_photo)){
             
@@ -46,7 +53,8 @@ if (isset($_POST['create_teacher'])) {
                 print_r($_FILES['t_photo']);
             }
         }else{
-            echo "None";
+            // $id= getTableData('teachers','id')
+           $newphotoname= "Null";
         }
     }
 }
