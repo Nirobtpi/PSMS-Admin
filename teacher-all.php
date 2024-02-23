@@ -48,9 +48,7 @@ require_once("header.php");
                             <th>
                                 Gender
                             </th>
-                            <th>
-                                Teacher Photo
-                            </th>
+                           
                             <th>
                                 Date
                             </th>
@@ -66,12 +64,6 @@ require_once("header.php");
                                 <td><?php echo $singleData['email'] ?></td>
                                 <td><?php echo $singleData['mobile'] ?></td>
                                 <td><?php echo $singleData['gender'] ?></td>
-                                <td><?php
-                                    if ($singleData['photo'] == "") : ?>
-                                    <?php else : ?>
-                                        <img src="<?php echo $singleData['photo'] ?>" style="width:50px; height: 50px;" class="img-fluid rounded-top" alt="" />
-                                    <?php endif; ?>
-                                </td>
                                 <td><?php echo date("Y-m-d", strtotime($singleData['created_at'])); ?></td>
                                 <td><a href="" class="btn btn-sm btn-warning">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a></td>
                             </tr>

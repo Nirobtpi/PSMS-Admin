@@ -9,13 +9,13 @@ if (isset($_POST['create_teacher'])) {
     $t_gender = $_POST['t_gender'];
     $t_password = $_POST['t_password'];
     $t_c_password = $_POST['t_c_password'];
-    $t_photo = $_FILES['t_photo']['name'];
+    // $t_photo = $_FILES['t_photo']['name'];
     $t_terms = $_POST['t_terms'];
     $patten = '/(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/';
 
-    $terget_dir = 'uploads/';
-    $terget_file = $terget_dir . basename($_FILES['t_photo']['name']);
-    $fileExtention = strtolower(pathinfo($terget_file, PATHINFO_EXTENSION));
+    // $terget_dir = 'uploads/';
+    // $terget_file = $terget_dir . basename($_FILES['t_photo']['name']);
+    // $fileExtention = strtolower(pathinfo($terget_file, PATHINFO_EXTENSION));
 
     $teacherMobileCount = tRowCount('teachers', 'mobile', $t_mobile);
     $teacherEmaileCount = tRowCount('teachers', 'email', $t_email);
@@ -41,25 +41,27 @@ if (isset($_POST['create_teacher'])) {
     } elseif ($teacherMobileCount != 0) {
         $error = "Mobile Number Already Used!";
     } else {
-        if (!empty($t_photo)) {
+
+        unset($_POST);
+        // if (!empty($t_photo)) {
 
 
-            if ($fileExtention != "png" and $fileExtention != 'jpg' and $fileExtention != 'jpeg') {
-                $error = "File Must Be Used Jpeg,Png Or Jpg Verson!";
-            } else {
-                $newphotoname = $terget_dir . rand(1111, 9999) . "." . $fileExtention;
-                move_uploaded_file($_FILES['t_photo']['tmp_name'], $newphotoname);
+        //     if ($fileExtention != "png" and $fileExtention != 'jpg' and $fileExtention != 'jpeg') {
+        //         $error = "File Must Be Used Jpeg,Png Or Jpg Verson!";
+        //     } else {
+        //         $newphotoname = $terget_dir . rand(1111, 9999) . "." . $fileExtention;
+        //         move_uploaded_file($_FILES['t_photo']['tmp_name'], $newphotoname);
 
-                // print_r($_FILES['t_photo']);
-            }
-        } else {
-            // $id= getTableData('teachers','id')
-            $newphotoname = "";
-        }
+        //         // print_r($_FILES['t_photo']);
+        //     }
+        // } else {
+        //     // $id= getTableData('teachers','id')
+        //     $newphotoname = "";
+        // }
         $created_At = date("Y-m-d H:i:s");
         $t_password = SHA1($t_password);
-        $stm = $conn->prepare("INSERT INTO teachers (name,email,mobile,address,gender,photo,password,created_at) VALUES(?,?,?,?,?,?,?,?)");
-        $stm->execute(array($t_name, $t_email, $t_mobile, $t_address, $t_gender, $newphotoname, $t_password, $created_At));
+        $stm = $conn->prepare("INSERT INTO teachers (name,email,mobile,address,gender,password,created_at) VALUES(?,?,?,?,?,?,?)");
+        $stm->execute(array($t_name, $t_email, $t_mobile, $t_address, $t_gender, $t_password, $created_At));
 
         $success = "Data Insert Success!";
     }
@@ -129,10 +131,7 @@ if (isset($_POST['create_teacher'])) {
                         <label for="t_c_password">Confirm Password</label>
                         <input type="password" name="t_c_password" class="form-control" id="t_c_password" placeholder="Teacher Password" value="<?php echo get_values('t_c_password') ?>">
                     </div>
-                    <div class="form-group">
-                        <label for="t_photo">Teacher Photo:</label><br>
-                        <input type="file" value="<?php echo get_values('t_photo') ?>" name="t_photo" id="t_photo" placeholder="Teacher Photo">
-                    </div>
+
                     <div class="form-check mb-3 form-check-flat form-check-primary">
                         <label class="form-check-label">
                             <input type="checkbox" checked name="t_terms" class="form-check-input">
