@@ -27,7 +27,36 @@
       <!-- endinject -->
       <!-- Custom js for this page-->
       <script src="js/dashboard.js"></script>
+      <script src="//cdn.datatables.net/2.0.0/js/dataTables.min.js"></script>
+
       <!-- End custom js for this page-->
+
+      <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js"></script>
+      <script src="https://cdn.datatables.net/buttons/3.0.0/js/dataTables.buttons.js"></script>
+      <script src=" https://cdn.datatables.net/buttons/3.0.0/js/buttons.dataTables.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+      <script src=" https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+      <script src=" https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+      <script src="https://cdn.datatables.net/buttons/3.0.0/js/buttons.html5.min.js"></script>
+
+      <script>
+          //   let table = new DataTable('#myTable');
+          $(document).ready(function() {
+            //   let table = new DataTable('#myTable');
+              $('#myTable').DataTable({
+                      "pageLength": 5,
+                      dom: 'Bfrtip',
+                      buttons: [
+                          'copyHtml5',
+                          'excelHtml5',
+                          'csvHtml5',
+                          'pdfHtml5'
+                      ]
+                  }
+
+              );
+          });
+      </script>
       </body>
 
       </html>

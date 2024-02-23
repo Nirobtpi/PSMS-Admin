@@ -22,10 +22,10 @@ require_once("header.php");
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="myTable">
                     <thead>
                         <?php
-                        $stm = $conn->prepare("SELECT * FROM teachers");
+                        $stm = $conn->prepare("SELECT * FROM teachers ORDER BY id DESC");
                         $stm->execute(array());
                         $allData = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -54,6 +54,7 @@ require_once("header.php");
                             <th>
                                 Date
                             </th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,6 +73,7 @@ require_once("header.php");
                                     <?php endif; ?>
                                 </td>
                                 <td><?php echo date("Y-m-d", strtotime($singleData['created_at'])); ?></td>
+                                <td><a href="" class="btn btn-sm btn-warning">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a></td>
                             </tr>
                         <?php $i++;
                         endforeach; ?>
