@@ -6,16 +6,8 @@ require_once("header.php");
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
             <i class="mdi mdi-account-multiple"></i>
         </span>
-        All Teacher
+        All Subject
     </h3>
-    <nav aria-label="breadcrumb">
-        <ul class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">
-                <span></span>Overview
-                <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
-            </li>
-        </ul>
-    </nav>
 </div>
 
 <div class="row">
@@ -37,18 +29,18 @@ require_once("header.php");
                                 #
                             </th>
                             <th>
-                                Teacher Name
+                                Subject Name
                             </th>
                             <th>
-                                Teacher EMail
+                                Subject Code
                             </th>
                             <th>
-                                Teacher Mobile
+                                Subject Type
                             </th>
                             <th>
                                 Gender
                             </th>
-                           
+
                             <th>
                                 Date
                             </th>

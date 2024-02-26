@@ -1,23 +1,11 @@
 <?php
 require_once("header.php");
 
-if (isset($_POST['create_teacher'])) {
-    $t_name = $_POST['t_name'];
-    $t_email = $_POST['t_email'];
-    $t_mobile = $_POST['t_mobile'];
-    $t_address = $_POST['t_address'];
-    $t_gender = $_POST['t_gender'];
-    $t_password = $_POST['t_password'];
-    $t_c_password = $_POST['t_c_password'];
-    // $t_photo = $_FILES['t_photo']['name'];
-    $t_terms = $_POST['t_terms'];
-    $patten = '/(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/';
+if (isset($_POST['create_subject'])) {
+    $sub_name = $_POST['sub_name'];
+    $sub_code = $_POST['sub_code'];
+    $sub_type = $_POST['sub_type'];
 
-    // $terget_dir = 'uploads/';
-    // $terget_file = $terget_dir . basename($_FILES['t_photo']['name']);
-    // $fileExtention = strtolower(pathinfo($terget_file, PATHINFO_EXTENSION));
-
-    $teacherMobileCount = tRowCount('teachers', 'mobile', $t_mobile);
     $teacherEmaileCount = tRowCount('teachers', 'email', $t_email);
 
     if (empty($t_name)) {
@@ -26,28 +14,13 @@ if (isset($_POST['create_teacher'])) {
         $error = "Please Enter Your Email";
     } elseif (empty($t_mobile)) {
         $error = "Please Enter Your Mobile Number";
-    } elseif (!preg_match($patten, $t_mobile)) {
-        $error = "Please Enter A Valid Phone Number";
-    } elseif (!filter_var($t_email, FILTER_VALIDATE_EMAIL)) {
-        $error = "Please Enter A Valid Email";
-    } elseif (empty($t_password)) {
-        $error = "Please Enter Your Password";
-    } elseif ($t_password != $t_c_password) {
-        $error = "Passsword Does Not Match!";
-    } elseif (strlen($t_password) < 6 or strlen($t_password) > 15) {
-        $error = "Password Must Be Used 6 T0 15 Digit!";
-    } elseif ($teacherEmaileCount != 0) {
-        $error = "Email Already Used!";
-    } elseif ($teacherMobileCount != 0) {
-        $error = "Mobile Number Already Used!";
     } else {
         unset($_POST);
         $created_At = date("Y-m-d H:i:s");
-        $t_password = SHA1($t_password);
         $stm = $conn->prepare("INSERT INTO teachers (name,email,mobile,address,gender,password,created_at) VALUES(?,?,?,?,?,?,?)");
         $stm->execute(array($t_name, $t_email, $t_mobile, $t_address, $t_gender, $t_password, $created_At));
 
-        $success = "Data Insert Success!";
+        $success = "Subject Create Success!";
     }
 }
 
@@ -84,7 +57,7 @@ if (isset($_POST['create_teacher'])) {
                         <?php echo $success; ?>
                     </div>
                 <?php endif; ?>
-                <form class="forms-sample" method="POST" enctype="multipart/form-data">
+                <form class="forms-sample" method="POST">
                     <div class="form-group">
                         <label for="sub_name">Subject Name</label>
                         <input type="text" name="sub_name" class="form-control" id="sub_name" placeholder="Subject Name" value="<?php echo get_values('sub_name') ?>">
@@ -96,8 +69,8 @@ if (isset($_POST['create_teacher'])) {
                     <div class="form-group">
                         <label for="t_gender">Subject Type</label>
                         <br>
-                        <label for="male"><input type="radio" checked name="Sub_type" value="Theroy" id="male">&nbsp; Theroy</label>&nbsp;&nbsp;
-                        <label for="female"><input type="radio" name="Sub_type" value="Practical" id="female"> &nbsp; Practical</label>
+                        <label for="male"><input type="radio" checked name="sub_type" value="Theroy" id="male">&nbsp; Theroy</label>&nbsp;&nbsp;
+                        <label for="female"><input type="radio" name="sub_type" value="Practical" id="female"> &nbsp; Practical</label>
                     </div>
                     <button type="submit" name="create_subject" class="btn btn-gradient-primary mr-2">Create Subject</button>
                 </form>
