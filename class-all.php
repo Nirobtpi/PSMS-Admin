@@ -6,7 +6,7 @@ require_once("header.php");
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
             <i class="mdi mdi-account-multiple"></i>
         </span>
-        All Subject
+        All Class
     </h3>
 </div>
 <?php if (isset($_REQUEST['success'])) : ?>
@@ -22,42 +22,41 @@ require_once("header.php");
                 <table class="table table-bordered" id="myTable">
                     <thead>
                         <?php
-                        $stm = $conn->prepare("SELECT * FROM subject ORDER BY id DESC");
-                        $stm->execute(array());
-                        $allData = $stm->fetchAll(PDO::FETCH_ASSOC);
-
-                        // print_r($allData);
-
+                        $getData = GetAllData('class');
                         ?>
                         <tr>
                             <th>
                                 #
                             </th>
                             <th>
-                                Subject Name
+                                Class Name
                             </th>
                             <th>
-                                Subject Code
+                                Start Date
                             </th>
                             <th>
-                                Subject Type
+                                End Date
                             </th>
                             <th>
-                                Date
+                                Subjects
+                            </th>
+                            <th>
+                                Created Date
                             </th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $i = 1;
-                        foreach ($allData as $singleData) : ?>
+                        foreach ($getData as $singleData) : ?>
                             <tr>
                                 <td><?php echo $i; ?></td>
-                                <td><?php echo $singleData['sub_name'] ?></td>
-                                <td><?php echo $singleData['sub_code'] ?></td>
-                                <td><?php echo $singleData['sub_type'] ?></td>
+                                <td><?php echo $singleData['class_name'] ?></td>
+                                <td><?php echo $singleData['start_date'] ?></td>
+                                <td><?php echo $singleData['end_date'] ?></td>
+                                <td><?php echo $singleData['subjects'] ?></td>
                                 <td><?php echo date("Y-m-d", strtotime($singleData['created_at'])); ?></td>
-                                <td><a href="subject-edit.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-warning">Edit</a> <a href="subject-delete.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure?')" >Delete</a></td>
+                                <td><a href="subject-edit.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-warning">Edit</a> <a href="subject-delete.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure?')">Delete</a></td>
                             </tr>
                         <?php $i++;
                         endforeach; ?>

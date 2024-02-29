@@ -32,3 +32,19 @@ function getAllTableData($tbl, $id)
     $res = $stm->fetch(PDO::FETCH_ASSOC);
     return $res;
 }
+
+function DeleteData($tbl,$id){
+    global $conn;
+
+    $stm=$conn->prepare("DELETE FROM $tbl WHERE id=? ");
+   $res= $stm->execute(array($id));
+
+   return $res;
+}
+function GetAllData($tbl){
+    global $conn;
+    $stm = $conn->prepare("SELECT * FROM $tbl ORDER BY id DESC");
+    $stm->execute(array());
+    $allData = $stm->fetchAll(PDO::FETCH_ASSOC);
+    return $allData;
+}

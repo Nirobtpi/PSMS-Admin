@@ -230,15 +230,15 @@ if (!isset($_SESSION['admin'])) {
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic5" aria-expanded="false" aria-controls="ui-basic">
                             <span class="menu-title">Classes</span>
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                         </a>
-                        <div class="collapse" id="ui-basic4">
+                        <div class="collapse" id="ui-basic5">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="">All Class</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="">Add New</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="class-all.php">All Class</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="class-add-new.php">Add New</a></li>
                             </ul>
                         </div>
                     </li>
