@@ -280,6 +280,7 @@ if (!isset($_SESSION['admin'])) {
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="teacher-all.php">All Teacher</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="teacher-add-new.php">Add New Teacher</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="teacher-assign-subject.php">Assign Subject</a></li>
                             </ul>
                         </div>
                     </li>

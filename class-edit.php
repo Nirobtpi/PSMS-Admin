@@ -1,5 +1,6 @@
 <?php
 require_once("header.php");
+$id = $_REQUEST['id'];
 
 if (isset($_POST['create_class'])) {
     $class_name = $_POST['class_name'];
@@ -20,15 +21,23 @@ if (isset($_POST['create_class'])) {
     } elseif (empty($subject)) {
         $error = "Please Enter Your Subject";
     } else {
-        unset($_POST);
-        $created_At = date("Y-m-d H:i:s");
-        $subject=json_encode($subject);
-        $stm = $conn->prepare("INSERT INTO class (class_name,start_date,end_date,subjects,created_at) VALUES(?,?,?,?,?)");
-        $stm->execute(array($class_name, $start_date, $end_date, $subject, $created_At));
+        $subject = json_encode($subject);
+        $stm = $conn->prepare("UPDATE class SET  class_name=?,start_date=?,end_date=?,subjects=? WHERE id=?");
+        $stm->execute(array($class_name, $start_date, $end_date, $subject,$id));
 
-        $success = "Class Create Success!";
+        $success = "Class Update Success!";
+        ?>
+            <script>
+                setTimeout(function(){
+                    window.location="class-all.php?success=Data Update Successfully";
+                })
+            </script>
+        <?php
     }
 }
+
+$tableData = getAllTableData('class', $id);
+
 
 ?>
 <div class="page-header">
@@ -36,7 +45,7 @@ if (isset($_POST['create_class'])) {
         <span class="page-title-icon bg-gradient-primary text-white mr-2">
             <i class="mdi mdi-airballoon"></i>
         </span>
-        Add New Class
+        Edit Class
     </h3>
     <nav aria-label="breadcrumb">
         <ul class="breadcrumb">
@@ -65,29 +74,35 @@ if (isset($_POST['create_class'])) {
                 <form class="forms-sample" method="POST">
                     <div class="form-group">
                         <label for="class_name">Class Title</label>
-                        <input type="text" name="class_name" class="form-control" id="class_name" placeholder="Class Name" value="<?php echo get_values('class_name') ?>">
+                        <input type="text" name="class_name" class="form-control" id="class_name" placeholder="Class Name" value="<?php echo $tableData['class_name'] ?>">
                     </div>
                     <div class="form-group">
                         <label for="start_date">Start Date</label>
-                        <input type="date" name="start_date" class="form-control" id="start_date" placeholder="Start Date" value="<?php echo get_values('start_date') ?>">
+                        <input type="date" name="start_date" class="form-control" id="start_date" placeholder="Start Date" value="<?php echo $tableData['start_date'] ?>">
                     </div>
                     <div class="form-group">
                         <label for="end_date">End Date</label>
-                        <input type="date" name="end_date" class="form-control" id="end_date" placeholder="End Date" value="<?php echo get_values('end_date') ?>">
+                        <input type="date" name="end_date" class="form-control" id="end_date" placeholder="End Date" value="<?php echo $tableData['end_date'] ?>">
                     </div>
                     <div class="form-group">
                         <?php
+                        $nirob = json_decode($tableData['subjects']);
+                        // print_r($getSub);
                         $stm = $conn->prepare("SELECT * FROM subject");
                         $stm->execute(array());
                         $getSub = $stm->fetchAll(PDO::FETCH_ASSOC);
                         // print_r($getSub);
                         foreach ($getSub as $sub) :
                         ?>
-                            <label for="subject<?php echo $sub['id'] ?>"><input type="checkbox" name="subject[]" value="<?php echo $sub['id'] ?>" id="subject<?php echo $sub['id'] ?>">&nbsp; <?php echo $sub['sub_name'] ?> - <?php echo $sub['sub_code']; ?></label><br><br>
+                            <label for="subject<?php echo $sub['id'] ?>"><input type="checkbox" name="subject[]" <?php foreach ($nirob as $nir) {
+                                                                                                                        if ($nir == $sub['id']) {
+                                                                                                                            echo "checked";
+                                                                                                                        }
+                                                                                                                    } ?> value="<?php echo $sub['id'] ?>" id="subject<?php echo $sub['id'] ?>">&nbsp; <?php echo $sub['sub_name'] ?> - <?php echo $sub['sub_code']; ?></label><br><br>
                         <?php endforeach; ?>
                     </div>
 
-                    <button type="submit" name="create_class" class="btn btn-gradient-primary mr-2">Create Class</button>
+                    <button type="submit" name="create_class" class="btn btn-gradient-primary mr-2">Edit Class</button>
                 </form>
             </div>
         </div>

@@ -79,7 +79,7 @@ if (isset($_SESSION['teacher_login'])) {
               <?php endif; ?>
               <form class="pt-3" method="POST">
                 <div class="form-group">
-                  <input type="text" name="username" class="form-control form-control-lg" id="admin" placeholder="Username">
+                  <input type="text" name="username" class="form-control form-control-lg" id="admin" placeholder="Enter Your Phone Number">
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" id="password" placeholder="Password" name="password">

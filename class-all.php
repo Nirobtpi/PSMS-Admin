@@ -54,9 +54,16 @@ require_once("header.php");
                                 <td><?php echo $singleData['class_name'] ?></td>
                                 <td><?php echo $singleData['start_date'] ?></td>
                                 <td><?php echo $singleData['end_date'] ?></td>
-                                <td><?php echo $singleData['subjects'] ?></td>
+                                <td><?php
+                                    $subject_list = json_decode($singleData['subjects']);
+                                        // get subjectName and code 
+                                    foreach ($subject_list as $list) {
+                                        $subname = getSubjectName($list);
+                                        echo $subname['sub_name']." " . " - " .  $subname['sub_code']."<br>";
+                                    }
+                                    ?></td>
                                 <td><?php echo date("Y-m-d", strtotime($singleData['created_at'])); ?></td>
-                                <td><a href="subject-edit.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-warning">Edit</a> <a href="subject-delete.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure?')">Delete</a></td>
+                                <td><a href="class-edit.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-warning">Edit</a> <a href="subject-delete.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-success">View</a></td>
                             </tr>
                         <?php $i++;
                         endforeach; ?>

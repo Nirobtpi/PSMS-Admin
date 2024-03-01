@@ -7,7 +7,6 @@ if (isset($_POST['update_subject'])) {
     $sub_name = $_POST['sub_name'];
     $sub_type = $_POST['sub_type'];
 
-
     if (empty($sub_name)) {
         $error = "Please Enter Subject Name";
     } else {
