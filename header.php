@@ -224,8 +224,8 @@ if (!isset($_SESSION['admin'])) {
                         </a>
                         <div class="collapse" id="ui-basic4">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="">All Routine</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="">Add New</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="routine-all.php">All Routine</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="routine-add-new.php">Add New</a></li>
                             </ul>
                         </div>
                     </li>
@@ -293,7 +293,7 @@ if (!isset($_SESSION['admin'])) {
                         <div class="collapse" id="ui-basic2">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="">Students Payment</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="">Teacher Payment</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="">Frouer Payment</a></li>
                             </ul>
                         </div>
                     </li>
