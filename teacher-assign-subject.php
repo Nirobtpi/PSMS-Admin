@@ -61,7 +61,7 @@ require_once("header.php");
                                 <td><?php echo $teacherName['name'] ?></td>
                                 <td><?php echo $subjectData['sub_name'] ?></td>
                                 <td><?php echo $subjectData['sub_code']  ?></td>
-                                <td><a href="" class="btn btn-sm btn-warning">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a></td>
+                                <td><a href="teacher-edit-assign.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-warning">Edit</a> <a href="teacher-assign-delete.php?id=<?php echo $singleData['id'] ?>" class="btn btn-sm btn-danger">Delete</a></td>
                             </tr>
                         <?php $i++;
                         endforeach; ?>

@@ -39,7 +39,6 @@ function DeleteData($tbl, $id)
 
     $stm = $conn->prepare("DELETE FROM $tbl WHERE id=? ");
     $res = $stm->execute(array($id));
-
     return $res;
 }
 function GetAllData($tbl)
