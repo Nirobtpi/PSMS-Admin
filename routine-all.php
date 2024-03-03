@@ -22,48 +22,35 @@ require_once("header.php");
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <table class="table table-bordered" id="myTable">
+                <table class="table table-bordered">
                     <thead>
-                        <?php
-                        $stm = $conn->prepare("SELECT DISTINCT class_name FROM class_routine");
-                        $stm->execute(array());
-                        $class_list = $stm->fetchAll(PDO::FETCH_ASSOC);
-                        print_r($class_list);
-                        ?>
                         <tr>
                             <th>
                                 #
                             </th>
                             <th>
-                                Teacher Name
-                            </th>
-                            <th>
-                                Teacher EMail
-                            </th>
-                            <th>
-                                Teacher Mobile
-                            </th>
-                            <th>
-                                Gender
-                            </th>
-
-                            <th>
-                                Date
+                                Class Name
                             </th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                        $stm = $conn->prepare("SELECT DISTINCT class_name FROM class_routine");
+                        $stm->execute(array());
+                        $class_list = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+                        // $routine_data = AlltableData('class_routine');
+                        // print_r($routine_data);
+                        ?>
                         <?php $i = 1;
-                        foreach ($allData as $singleData) : ?>
+                        foreach ($class_list as $class) :
+                            $get_class_name = getTableData('class', 'class_name', $class['class_name']);
+                        ?>
                             <tr>
                                 <td><?php echo $i; ?></td>
-                                <td><?php echo $singleData['name'] ?></td>
-                                <td><?php echo $singleData['email'] ?></td>
-                                <td><?php echo $singleData['mobile'] ?></td>
-                                <td><?php echo $singleData['gender'] ?></td>
-                                <td><?php echo date("Y-m-d", strtotime($singleData['created_at'])); ?></td>
-                                <td><a href="" class="btn btn-sm btn-warning">Edit</a> <a href="" class="btn btn-sm btn-danger">Delete</a></td>
+                                <td><?php echo $get_class_name['class_name'] ?></td>
+                                <td><a href="routine-details.php?id=<?php echo $class['class_name'] ?>" class="btn btn-sm btn-success">View Class Routine</a>
                             </tr>
                         <?php $i++;
                         endforeach; ?>
