@@ -246,21 +246,31 @@ $get_teacher_data = getTableData('teachers', 'photo', $t_id);
                         </a>
                         <div class="collapse" id="ui-basic4">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="">All Routine</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="">Add New</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="class-routine.php">Class Routine</a></li>
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="collapse" href="#ui-basic4" aria-expanded="false" aria-controls="ui-basic">
-                            <span class="menu-title">Classes</span>
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic9" aria-expanded="false" aria-controls="ui-basic">
+                            <span class="menu-title">Assigend Class</span>
                             <i class="menu-arrow"></i>
                             <i class="mdi mdi-crosshairs-gps menu-icon"></i>
                         </a>
-                        <div class="collapse" id="ui-basic4">
+                        <div class="collapse" id="ui-basic9">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="">All Class</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="">Add New</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="assigend-class.php">Assigend Class</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic10" aria-expanded="false" aria-controls="ui-basic">
+                            <span class="menu-title">Assigend Subjects</span>
+                            <i class="menu-arrow"></i>
+                            <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                        </a>
+                        <div class="collapse" id="ui-basic10">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="assigend-subject.php">Assigend Subjects</a></li>
                             </ul>
                         </div>
                     </li>
