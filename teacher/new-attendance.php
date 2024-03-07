@@ -64,8 +64,19 @@ if (isset($_POST['t_change_password'])) {
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="class">Select Class:</label>
-                            <select class="form-control" name="class" id="class">
-                                <option value=""></option>
+                            <select class="form-control" name="class_name" id="class_name">
+                                <option value="">Select A Class</option>
+                                <?php
+                                $stm = $conn->prepare("SELECT DISTINCT class_name FROM class_routine WHERE teacher_id=?");
+                                $stm->execute(array($teacher_id));
+                                $class_list = $stm->fetchAll(PDO::FETCH_ASSOC);
+                                ?>
+                                <?php $i = 1;
+                                foreach ($class_list as $class) :
+                                    $get_class_name = getTableData('class', 'class_name', $class['class_name']);
+                                ?>
+                                    <option value="<?php echo $get_class_name['class_name'] ?>"><?php echo $get_class_name['class_name'] ?></option>
+                                <?php endforeach;  ?>
                             </select>
                         </div>
                     </div>
@@ -123,3 +134,25 @@ if (isset($_POST['t_change_password'])) {
 </div>
 
 <?php require_once("footer.php") ?>
+
+<script>
+    $('#class_name').change(function() {
+        let class_id = $(this).val();
+        let teacher_id = "<?php echo $teacher_id  ?>";
+
+        $.ajax({
+            type: 'POST',
+            url: "ajax.php",
+            data: {
+                teacher_id: teacher_id,
+                class_id: class_id,
+            },
+            success: function(response) {
+                let data = response;
+                console.log(data);
+                $('#sub_name').html(data);
+                console.log(response);
+            }
+        });
+    })
+</script>
